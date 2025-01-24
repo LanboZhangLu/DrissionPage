@@ -1,56 +1,94 @@
 # -*- coding:utf-8 -*-
+"""
+@Author   : g1879
+@Contact  : g1879@qq.com
+@Website  : https://DrissionPage.cn
+@Copyright: (c) 2020 by g1879, Inc. All Rights Reserved.
+"""
+from ._functions.settings import Settings as _S
 
 
 class BaseError(Exception):
-    _info = None
 
-    def __init__(self, ErrorInfo=None):
-        super().__init__(self)  # 初始化父类
-        self._info = ErrorInfo or self._info
+    def __init__(self, *args, **kwargs):
+        self._kwargs = kwargs
+        self._args = args if args else [_S._lang.get(self.__class__.__name__.upper())]
 
     def __str__(self):
-        return self._info
-
-
-class AlertExistsError(BaseError):
-    _info = '存在未处理的提示框。'
-
-
-class ContextLossError(BaseError):
-    _info = '页面被刷新，请操作前尝试等待页面刷新或加载完成。'
-
-
-class ElementLossError(BaseError):
-    _info = '元素对象因刷新已失效。'
-
-
-class CallMethodError(BaseError):
-    _info = '方法调用错误。'
-
-
-class TabClosedError(BaseError):
-    _info = '标签页已关闭。'
+        return _S._lang.join(*self._args, **self._kwargs)
 
 
 class ElementNotFoundError(BaseError):
-    _info = '没有找到元素。'
+    pass
+
+
+class AlertExistsError(BaseError):
+    pass
+
+
+class ContextLostError(BaseError):
+    pass
+
+
+class ElementLostError(BaseError):
+    pass
+
+
+class CDPError(BaseError):
+    pass
+
+
+class PageDisconnectedError(BaseError):
+    pass
 
 
 class JavaScriptError(BaseError):
-    _info = 'JavaScript运行错误。'
+    pass
 
 
 class NoRectError(BaseError):
-    _info = '该元素没有位置及大小。'
+    pass
 
 
 class BrowserConnectError(BaseError):
-    _info = '浏览器连接失败。'
+    pass
 
 
 class NoResourceError(BaseError):
-    _info = '该元素无可保存的内容或保存失败。'
+    pass
 
 
 class CanNotClickError(BaseError):
-    _info = '该元素无法滚动到视口或被遮挡，无法点击。'
+    pass
+
+
+class GetDocumentError(BaseError):
+    pass
+
+
+class WaitTimeoutError(BaseError):
+    pass
+
+
+class IncorrectURLError(BaseError):
+    pass
+
+
+class StorageError(BaseError):
+    pass
+
+
+class CookieFormatError(BaseError):
+    pass
+
+
+class TargetNotFoundError(BaseError):
+    pass
+
+
+class LocatorError(BaseError):
+    pass
+
+
+class UnknownError(BaseError):
+    pass
